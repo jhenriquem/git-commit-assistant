@@ -34,6 +34,7 @@ func Message(data model.Application) string {
 func Get_commit_message(data string) string {
 	list := strings.Split(data, "\n")
 
-	commit_message := list[0]
+	message := strings.Split(list[0], " ")
+	commit_message := strings.Join(message[2:], " ")
 	return commit_message
 }

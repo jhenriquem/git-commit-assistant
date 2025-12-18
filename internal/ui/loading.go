@@ -33,6 +33,7 @@ func (m modelLoading) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		return m, nil
 
 	case stopMsg:
+		tea.Quit()
 		return m, tea.Quit
 
 	case errMsg:

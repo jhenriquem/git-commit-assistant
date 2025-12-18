@@ -32,6 +32,9 @@ func (m modelLoading) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.KeyMsg:
 		return m, nil
 
+	case stopMsg:
+		return m, tea.Quit
+
 	case errMsg:
 		m.err = msg
 		return m, nil
@@ -54,10 +57,10 @@ func (m modelLoading) View() string {
 	return str
 }
 
-func Loading(stopchan chan bool) {
+func Loading(stopchan chan struct{}) {
 	p := tea.NewProgram(initialModel())
 
-	go p.Run()
+	go func() { p.Run() }()
 	<-stopchan
-	p.Kill()
+	p.Send(stopMsg{})
 }

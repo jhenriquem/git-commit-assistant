@@ -75,17 +75,17 @@ func main() {
 		// --------
 		data := parser.Message(newInstace)
 
-		stop := make(chan bool)
+		stop := make(chan struct{})
 
 		go ui.Loading(stop)
 
 		resp, err := handler.Get_commit_message(data)
 		if err != nil {
-			stop <- true
+			close(stop)
 			log.Printf("ERROR : %s", err.Error())
 		}
 
-		stop <- true
+		close(stop)
 
 		//---------
 

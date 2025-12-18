@@ -94,7 +94,7 @@ func main() {
 }
 
 func confirm_commit_message(commit_message string) {
-	fmt.Printf("\nCommit message : %s\n", commit_message)
+	fmt.Printf("\n\nCommit message : %s\n", commit_message)
 
 	prompt := ui.Select("Did you like it ?")[3]
 

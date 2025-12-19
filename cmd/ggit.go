@@ -99,9 +99,10 @@ func check_unadded_changes(diff string) error {
 }
 
 func confirm_commit_message(commit_message string) {
-	fmt.Printf("\n\n    Commit message : %s\n", commit_message)
+	fmt.Printf(ui.StyleCommit.Render("\n\n    Commit message :"))
+	fmt.Print(commit_message + "\n")
 
-	prompt := ui.Select("\n    Did you like it ?")[3]
+	prompt := ui.Select("    Did you like it ?")[3]
 
 	option := true
 	for _, char := range prompt {

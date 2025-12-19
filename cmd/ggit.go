@@ -21,43 +21,24 @@ func main() {
 
 	newInstace := model.Application{}
 
-	fmt.Println("\nHi! I'm a git commit assistant\n")
+	fmt.Print("\n    "+ui.StyleIntroduction.Render("Hi! I'm a git commit assistant"), "\n")
 	if git_repository.Exist_repository() {
 
 		//------
 		unadded, err := git_repository.Get_unadded_changes()
 		if err != nil {
-			fmt.Printf("\nERROR : %s", err.Error())
+			log.Println(ui.StyleError.Render(fmt.Sprintf("\nERROR : %s", err.Error())))
 		}
 		newInstace.UnAdded = unadded
 
 		//------
-		if newInstace.UnAdded != "" {
-
-			fmt.Println("I noticed there are changes outside the stage;")
-			prompt := ui.Select("Would you like me to add them ? [Y/N]")
-			option := "y"
-
-			// Why do I only analyze the "no" field?
-			// The option is automatically set to "yes," so you just need to check if it wasn't selected.
-
-			for _, char := range prompt[3] {
-				if char == 'x' {
-					option = "n"
-				}
-			}
-
-			if option == "y" {
-				if err := git_repository.Add_changes(); err != nil {
-					fmt.Printf("\nERROR : %s", err.Error())
-				}
-			}
-			fmt.Print("\r                          \r")
+		if err := check_unadded_changes(newInstace.UnAdded); err != nil {
+			log.Println(ui.StyleError.Render(fmt.Sprintf("\nERROR : %s", err.Error())))
 		}
 		//------
 		uncommitted, err := git_repository.Get_uncommitted_changes()
 		if err != nil {
-			fmt.Printf("\nERROR : %s", err.Error())
+			log.Println(ui.StyleError.Render(fmt.Sprintf("\nERROR : %s", err.Error())))
 		}
 
 		if uncommitted == "" {
@@ -82,7 +63,7 @@ func main() {
 		resp, err := handler.Get_commit_message(data)
 		if err != nil {
 			close(stop)
-			log.Printf("ERROR : %s", err.Error())
+			log.Println(ui.StyleError.Render(fmt.Sprintf("\nERROR : %s", err.Error())))
 		}
 
 		close(stop)
@@ -93,10 +74,34 @@ func main() {
 	}
 }
 
-func confirm_commit_message(commit_message string) {
-	fmt.Printf("\n\nCommit message : %s\n", commit_message)
+func check_unadded_changes(diff string) error {
+	if diff != "" {
+		prompt := ui.Select("    I noticed there are changes outside the stage;\n    Would you like me to add them ? [Y/N]")
+		option := "y"
 
-	prompt := ui.Select("Did you like it ?")[3]
+		// Why do I only analyze the "no" field?
+		// The option is automatically set to "yes," so you just need to check if it wasn't selected.
+
+		for _, char := range prompt[3] {
+			if char == 'x' {
+				option = "n"
+			}
+		}
+
+		if option == "y" {
+			if err := git_repository.Add_changes(); err != nil {
+				return err
+			}
+		}
+		return nil
+	}
+	return nil
+}
+
+func confirm_commit_message(commit_message string) {
+	fmt.Printf("\n\n    Commit message : %s\n", commit_message)
+
+	prompt := ui.Select("\n    Did you like it ?")[3]
 
 	option := true
 	for _, char := range prompt {
@@ -107,6 +112,6 @@ func confirm_commit_message(commit_message string) {
 	if option {
 		git_repository.Commit(commit_message)
 	} else {
-		fmt.Println("OK, bye.")
+		fmt.Println("\n    OK, bye.")
 	}
 }

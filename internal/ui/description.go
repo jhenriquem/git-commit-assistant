@@ -23,7 +23,6 @@ func Input(input string) string {
 	}
 
 	prompt := strings.Split(model.View(), "\n")[1]
-	prompt = prompt[2:]
 	return prompt
 }
 
@@ -65,7 +64,7 @@ func (m modelInput) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m modelInput) View() string {
-	return fmt.Sprintf("%s \n %s \n",
+	return fmt.Sprintf("\n\n    %s \n     %s \n",
 		m.label,
 		m.textInput.View(),
 	) + "\n"

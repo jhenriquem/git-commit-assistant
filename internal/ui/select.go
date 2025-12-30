@@ -76,7 +76,7 @@ func (m modelSelect) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m modelSelect) View() string {
-	s := fmt.Sprintf("\n%s\n\n", m.label)
+	s := fmt.Sprintf("%s\n\n", m.label)
 	for i, choice := range m.choices {
 		cursor := " "
 		if m.cursor == i {

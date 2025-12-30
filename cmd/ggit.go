@@ -21,7 +21,7 @@ func main() {
 
 	newInstace := model.Application{}
 
-	fmt.Print("\n    "+ui.StyleIntroduction.Render("Hi! I'm a git commit assistant"), "\n")
+	ui.Introduction()
 	if git_repository.Exist_repository() {
 
 		//------
@@ -99,7 +99,7 @@ func check_unadded_changes(diff string) error {
 }
 
 func confirm_commit_message(commit_message string) {
-	fmt.Printf(ui.StyleCommit.Render("\n\n    Commit message :"))
+	fmt.Println(ui.StyleCommit.Render("\n    Commit message : "))
 	fmt.Print(commit_message + "\n")
 
 	prompt := ui.Select("    Did you like it ?")[3]

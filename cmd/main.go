@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	git_repository "git_commit_assistant/internal/git"
+	"git_commit_assistant/internal/git"
 	"git_commit_assistant/internal/handler"
 	"git_commit_assistant/internal/model"
 	"git_commit_assistant/internal/parser"
@@ -26,10 +26,10 @@ func main() {
 
 	ui.Introduction()
 
-	if git_repository.Exist_repository() {
+	if git.Exist_repository() {
 
 		//------
-		unadded, err := git_repository.Get_unadded_changes()
+		unadded, err := git.Get_unadded_changes()
 		if err != nil {
 			log.Println(ui.StyleError(fmt.Sprintf("\nERROR : %s", err.Error())))
 		}
@@ -40,7 +40,7 @@ func main() {
 			log.Println(ui.StyleError(fmt.Sprintf("\nERROR : %s", err.Error())))
 		}
 		//------
-		uncommitted, err := git_repository.Get_uncommitted_changes()
+		uncommitted, err := git.Get_uncommitted_changes()
 		if err != nil {
 			log.Println(ui.StyleError(fmt.Sprintf("\nERROR : %s", err.Error())))
 		}
@@ -69,6 +69,7 @@ func main() {
 
 		stop := make(chan struct{})
 
+		fmt.Print("\n")
 		go ui.Loading(stop)
 
 		resp, err := handler.Get_commit_message(data)
@@ -81,7 +82,9 @@ func main() {
 
 		//---------
 
-		confirm_commit_message(parser.Get_commit_message(resp.Text))
+		if err := confirm_commit_message(parser.Get_commit_message(resp.Text)); err != nil {
+			log.Println(ui.StyleError(fmt.Sprintf("\nERROR : %s", err.Error())))
+		}
 	}
 }
 
@@ -98,7 +101,7 @@ func check_unadded_changes(diff string) error {
 
 		prompt = strings.ToLower(strings.Trim(prompt, "\n"))
 		if prompt == "y" {
-			if err := git_repository.Add_changes(); err != nil {
+			if err := git.Add_changes(); err != nil {
 				return err
 			}
 		}
@@ -107,11 +110,12 @@ func check_unadded_changes(diff string) error {
 }
 
 func confirm_commit_message(commit_message string) error {
-	fmt.Print(ui.StyleCommit("\n:: Commit message : "))
+	fmt.Print(ui.StyleCommit(":: Commit message : "))
 	fmt.Print(commit_message + "\n")
 
 	fmt.Println(ui.Bold(":: Did you like it ? [Type y for yes/anything else for no]"))
-	fmt.Print("==> ")
+
+	fmt.Println("==> ")
 	prompt, err := bufio.NewReader(os.Stdout).ReadString('\n')
 	if err != nil {
 		return err
@@ -119,9 +123,9 @@ func confirm_commit_message(commit_message string) error {
 
 	prompt = strings.ToLower(strings.Trim(prompt, "\n"))
 	if prompt == "y" {
-		git_repository.Commit(commit_message)
+		git.Commit(commit_message)
 
-		last_commit, _ := git_repository.Get_last_commit()
+		last_commit, _ := git.Get_last_commit()
 
 		fmt.Println(ui.StyleCommit("\nCommitted."))
 		fmt.Println(ui.StyleHashCommit(last_commit))

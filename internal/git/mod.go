@@ -1,7 +1,7 @@
-package git_repository
+package git
 
 import (
-	"os"
+	"bytes"
 	"os/exec"
 	"strings"
 )
@@ -12,10 +12,17 @@ type Data struct {
 }
 
 func Exist_repository() bool {
-	if _, err := os.ReadDir(".git"); err != nil {
+	cmd := exec.Command("git", "rev-parse", "--is-inside-work-tree")
+
+	var out bytes.Buffer
+	cmd.Stdout = &out
+
+	err := cmd.Run()
+	if err != nil {
 		return false
 	}
-	return true
+
+	return strings.TrimSpace(out.String()) == "true"
 }
 
 func Get_unadded_changes() (string, error) {

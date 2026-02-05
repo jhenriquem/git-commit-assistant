@@ -1,8 +1,9 @@
+![cli image](./assets/screenshot.png) 
 # Git Commit Assistant
 
 A CLI assistant that automatically generates commit messages based on the diff,
 the type of change, and the patch size. Additionally, the tool relies on a brief
-description of the commit's purpose provided by the user.
+description of the commit's purpose provided by the user. I developed it for personal use, but decided to publish it on GitHub.
 
 ### Features
 
@@ -14,8 +15,21 @@ description of the commit's purpose provided by the user.
 ### Project Structure
 ```bash
 git_assistant/
-├── main.go # Entry point
+├── cmd/
+    └── main.go # Entry point
 ├── internal/
+    ├── git/     # Git functionalities
+    ├── parser/  # Message parser 
+    ├── handler/ # LLM request
+    ├── ui/      # Interface elements
+    └── model/   # Data model 
 ├── go.mod
 └── README.md
 ```
+
+### Requeriments
+- Go 
+- [OpenRouter account](https://openrouter.ai/) 
+- OpenRouter key
+
+ 

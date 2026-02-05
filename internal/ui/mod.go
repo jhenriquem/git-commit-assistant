@@ -7,10 +7,6 @@ import (
 	lg "github.com/charmbracelet/lipgloss"
 )
 
-type (
-	errMsg error
-)
-
 var StyleError = lg.NewStyle().Foreground(lg.Color("#D8647E")).Bold(true).Render
 
 var Bold = lg.NewStyle().Bold(true).Render
@@ -44,12 +40,9 @@ func Loading(stopchan chan struct{}) {
 	for {
 		select {
 		case <-stopchan:
-
-			fmt.Print("\r                          \r")
-			fmt.Print("\n")
 			return
 		default:
-			fmt.Println("\r" + Bold(fmt.Sprintf(" %s Generating...", frames[i%len(frames)])) + "\r")
+			fmt.Print("\r " + Bold(fmt.Sprintf(" %s Generating...", frames[i%len(frames)])) + "  \r")
 			time.Sleep(200 * time.Millisecond)
 			i++
 		}

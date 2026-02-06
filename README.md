@@ -1,34 +1,33 @@
 ![cli image](./assets/screenshot.png)
-<h2 align="center">Git Commit Assistant</h2>
+<h2 align="center">🤖 Git Commit Assistant</h2>
 
 ![Version](https://img.shields.io/github/v/release/henriquemco/git-commit-assistant?label=vers%C3%A3o)
 ![Go Version](https://img.shields.io/github/go-mod/go-version/henriquemco/git-commit-assistant)
 ![Made with Go](https://img.shields.io/badge/feito%20com-Go-00ADD8?logo=go)
 
-
 A CLI assistant that automatically generates commit messages based on the diff,
 the type of change, and the patch size. Additionally, the tool relies on a brief
 description of the commit's purpose provided by the user. I developed it for personal use, but decided to publish it on GitHub.
 
-### Features
+### 📌 Features
 
 - Analysis of diffs, patches, and change types
 - Interpretation of user messages
 - Automatic generation of commit messages
 - Automatic commit (with user approval)
 
-### Motivation
+### 💡 Motivation
 
 Writing good commit messages is important, but repetitive.
 This tool aims to reduce cognitive overhead while still preserving semantic and contextual quality in commits.
 
-### Disclaimer
+### ⚠️ Disclaimer
 
 - This tool does not push commits automatically.
 - Always review generated messages before confirming.
 - The quality of output depends on the chosen LLM model.
 
-### Project Structure
+### 🗃️ Project Structure
 ```bash
 git_assistant/
 ├── cmd/
@@ -45,7 +44,7 @@ git_assistant/
 ```
 
 
-### Requirements
+### ⚙️ Requirements
 Before installing and running the project, make sure you have:
 
 - Go (version 1.20 or higher recommended)
@@ -54,7 +53,7 @@ Before installing and running the project, make sure you have:
 - An OpenRouter API key
 
 
-### Installation 
+### 🚀 Installation 
 
  **On first run, the tool will prompt you for:** 
  - Your OpenRouter API key
@@ -92,7 +91,7 @@ go build -o git-commit-assistant ./cmd
 > 💡 Tip: Move the binary to a directory in your $PATH (e.g. ~/.local/bin) for global access.
 
 
-### Usage
+### 📍 Usage
 
 Run the tool inside a Git repository with staged or unstaged changes:
 
@@ -100,7 +99,7 @@ Run the tool inside a Git repository with staged or unstaged changes:
 git-commit-assistant
 ```
 
-You will be prompted to:
+**You will be prompted to:**
 1. Briefly describe the purpose of the commit
 2. Review the generated commit message
 3. Confirm or reject the commit

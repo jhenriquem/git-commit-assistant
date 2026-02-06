@@ -13,16 +13,9 @@ import (
 	"git_commit_assistant/internal/model"
 	"git_commit_assistant/internal/parser"
 	"git_commit_assistant/internal/ui"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
 	newInstace := model.Application{}
 	credentials := model.CredentialsFile{}
 

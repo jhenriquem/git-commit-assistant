@@ -2,3 +2,6 @@
 go.sum
 .gitignore
 gitassistant
+# Added by goreleaser init:
+dist/
+.goreleaser.yaml

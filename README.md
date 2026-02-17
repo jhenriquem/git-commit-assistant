@@ -1,7 +1,8 @@
 ![cli image](./assets/screenshot.png)
+
 <h2 align="center">🤖 Git Commit Assistant</h2>
 
-![Version](https://img.shields.io/github/v/release/henriquemco/git-commit-assistant?label=vers%C3%A3o)
+![Version](https://img.shields.io/github/v/release/henriquemco/git-commit-assistant?label=version)
 ![Go Version](https://img.shields.io/github/go-mod/go-version/henriquemco/git-commit-assistant)
 ![Made with Go](https://img.shields.io/badge/feito%20com-Go-00ADD8?logo=go)
 
@@ -28,6 +29,7 @@ This tool aims to reduce cognitive overhead while still preserving semantic and 
 - The quality of output depends on the chosen LLM model.
 
 ### 🗃️ Project Structure
+
 ```bash
 git_assistant/
 ├── cmd/
@@ -43,26 +45,25 @@ git_assistant/
 └── README.md
 ```
 
-
 ### ⚙️ Requirements
+
 Before installing and running the project, make sure you have:
 
 - Go (version 1.20 or higher recommended)
 - An OpenRouter account
-    👉 [OpenRouter account](https://openrouter.ai/) 
+  👉 [OpenRouter account](https://openrouter.ai/)
 - An OpenRouter API key
 
+### 🚀 Installation
 
-### 🚀 Installation 
+**On first run, the tool will prompt you for:**
 
- **On first run, the tool will prompt you for:** 
- - Your OpenRouter API key
- - The LLM model you want to use
- > These values are stored locally for future executions.
-
-
+- Your OpenRouter API key
+- The LLM model you want to use
+  > These values are stored locally for future executions.
 
 #### Release (Recommended)
+
 Download a prebuilt binary for your platform from the GitHub Releases page:
 
 👉 [Release](https://github.com/henriquemco/git-commit-assistant/releases/tag/v0.1.0)
@@ -71,43 +72,41 @@ Download a prebuilt binary for your platform from the GitHub Releases page:
 
 - **Clone the repository:**
 
-```bash 
+```bash
 git clone https://github.com/your-username/git-commit-assistant.git
 cd git-commit-assistant
 ```
 
 - **Build the project:**
 
-```bash 
+```bash
 go build -o git-commit-assistant ./cmd
- ```
+```
 
- - **Run the application**
+- **Run the application**
 
 ```bash
  ./git-commit-assistant
- ```
+```
 
 > 💡 Tip: Move the binary to a directory in your $PATH (e.g. ~/.local/bin) for global access.
-
 
 ### 📍 Usage
 
 Run the tool inside a Git repository with staged or unstaged changes:
 
-```bash 
+```bash
 git-commit-assistant
 ```
 
 **You will be prompted to:**
+
 1. Briefly describe the purpose of the commit
 2. Review the generated commit message
 3. Confirm or reject the commit
-No commit is created without explicit user approval.
+   No commit is created without explicit user approval.
 
 ### Configuration
 
 Configuration is handled interactively on first use.
 If needed, you can reset your credentials by deleting the local config file (location depends on OS).
-
-

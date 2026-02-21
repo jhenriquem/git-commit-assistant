@@ -93,11 +93,23 @@ go build -o git-commit-assistant ./cmd
 
 ### 📍 Usage
 
-Run the tool inside a Git repository with staged or unstaged changes:
+Enter a project that has a Git repository and run the executable file.
+
+If you've placed it in your path, simply run it.
 
 ```bash
 git-commit-assistant
 ```
+
+If not, specify the path to the executable starting with `./`.
+
+```bash
+./.../git-commit-assistant
+```
+
+The tool will analyze your Git repository and check its diffs, as well as ask for a description.
+
+**⚠️ Warning: You must have previous commits in the project for the tool to analyze the difference**
 
 **You will be prompted to:**
 
